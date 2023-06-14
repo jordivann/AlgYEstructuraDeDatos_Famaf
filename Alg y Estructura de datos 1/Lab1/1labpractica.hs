@@ -33,6 +33,10 @@ sumatoria :: [Int]->Int
 sumatoria [] = 0
 sumatoria (x:xs) = x + sumatoria xs
 
+--composicion
+sumatoria' :: [Int] -> Int
+sumatoria' = foldr (+) 0
+
 
 --Que calcule el productor de todos los elementos de la lista de enteros. 
 productoria :: [Int] -> Int 
