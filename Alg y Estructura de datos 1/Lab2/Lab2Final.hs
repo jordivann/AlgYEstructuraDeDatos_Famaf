@@ -296,4 +296,27 @@ a_long :: Arbol a -> Int
 a_long Hoja = 0
 a_long (Rama izq _ der) = 1 + a_long izq + a_long der
 
+-- Comose va dividiendo en dos ramas una izq y una der, podemos hacer recursividad dos veces en cada una de estas ramas contanto
+-- cuantas ramas tiene cada uno por así decirlo. 
+-- Si vamos al ejemplo graficado "Can" se divide en 2 ramas "a" y "t" por lo que en el primer paso tenemos 
+-- 1 + a_long(a) + a_long(t) -> Luego tenemos 1 + (1 + a_long("rio") + a_long("s")) + (1 + a_long("ar") + a_long("o"))
+-- que termina --> 1 + (1+ (1+0) + (1+0)) + (1 + (1+0) + (1+0))
+
+-- a_inc :: Num a => Arbol a -> Abol a que dado un árbol que contiene números los incrementa en uno
+a_inc :: Num a => Arbol a -> Arbol a 
+a_inc  Hoja = Hoja
+a_inc (Rama izq a der) = Rama (a_inc izq) (a+1) (a_inc der)
+
+
+-- a_map :: (a->b) -> Arbol a -> Arbol b que dada una función y un árbol, devuelve el árbol con la misma estructura, 
+--          que resulta de aplicar la función a cada uno de los elementos del árbol.
+a_map :: (a -> b) -> Arbol a -> Arbol b
+a_map _ Hoja = Hoja
+a_map t (Rama izq a der) = Rama (a_map t izq) (t a) (a_map t der)
+
+-- Reprogramar a_inc usando a_map 
+
+a_inc':: Num a => Arbol a -> Arbol a 
+a_inc' Hoja= Hoja
+a_inc' xs = a_map (+1) xs 
 -- <----- FIN EJERCICIO 9 ------->
