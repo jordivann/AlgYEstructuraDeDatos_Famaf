@@ -37,6 +37,7 @@ int main(void)
     // Precondición: Ninguna.
     // Postcondición: El valor de la variable abs es igual al valor absoluto de x.
     assert(abs == (x < 0 ? -x : x));
+    printf("\n----------------Fin programa-----------------\n");
 
     return 0;
 }

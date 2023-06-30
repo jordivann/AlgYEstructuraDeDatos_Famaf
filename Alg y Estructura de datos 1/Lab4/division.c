@@ -40,6 +40,7 @@ int main(void)
         printf("Cociente: %d\n", resultado.cociente);
         printf("Resto: %d\n", resultado.resto);
     }
+    printf("\n----------------Fin programa-----------------\n");
 
     return 0;
 }

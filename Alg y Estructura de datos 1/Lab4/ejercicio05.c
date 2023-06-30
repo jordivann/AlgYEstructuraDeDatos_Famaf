@@ -67,6 +67,7 @@ int main(void)
     printf("El arreglo ingresado es:\n");
 
     imprimeArreglo(a, n_max);
+    printf("\n----------------Fin programa-----------------\n");
 
     return 0;
 }

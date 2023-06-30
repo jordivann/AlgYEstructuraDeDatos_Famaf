@@ -41,6 +41,7 @@ int main(void)
     // Precondicion ninguna
     // postcondicion
     assert(x == t && y == z);
+    printf("\n----------------Fin programa-----------------\n");
 
     return 0;
 }

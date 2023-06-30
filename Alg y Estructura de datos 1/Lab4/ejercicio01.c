@@ -26,6 +26,7 @@ int main(void)
     scanf("%d", &x);
     assert(x >= 0);
     holaHasta(x);
+    printf("\n----------------Fin programa-----------------\n");
 
     return 0;
 }

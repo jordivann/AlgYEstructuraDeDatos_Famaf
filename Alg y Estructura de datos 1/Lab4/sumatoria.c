@@ -64,5 +64,6 @@ int main(void)
     }
 
     printf("La sumatoria de nuestro arreglo es: %d ", res);
+    printf("\n----------------Fin programa-----------------\n");
     return 0;
 }

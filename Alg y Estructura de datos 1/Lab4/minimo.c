@@ -42,5 +42,6 @@ int main(void)
     // precondicion: ninguna
     // postcondicion:
     assert(min == (x < y ? x : y));
+    printf("\n----------------Fin programa-----------------\n");
     return 0;
 }
