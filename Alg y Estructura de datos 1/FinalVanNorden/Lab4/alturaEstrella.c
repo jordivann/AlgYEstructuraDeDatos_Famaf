@@ -41,16 +41,16 @@ persona_t persona_de_menor_altura(persona_t arr[], unsigned int longitud)
 {
     int i;
     float alturaMenor = FLT_MAX;
-    persona_t bajito;
+    persona_t bajo;
     for (i = 0; i < longitud; i++)
     {
         if (arr[i].altura < alturaMenor)
         {
             alturaMenor = arr[i].altura;
-            bajito = arr[i];
+            bajo = arr[i];
         }
     }
-    return bajito;
+    return bajo;
 }
 
 int main(void)
@@ -58,10 +58,10 @@ int main(void)
     persona_t p1 = {"Paola", 21, 1.85, 75};
     persona_t p2 = {"Luis", 54, 1.75, 69};
     persona_t p3 = {"Julio", 40, 1.70, 80};
+    persona_t p;
     unsigned int longitud = 3;
     persona_t arr[] = {p1, p2, p3};
-    persona_t p;
-    printf("El peso promedio es %.2f Kg\n", peso_promedio(arr, longitud));
+    printf("El peso promedio es %.2f\n kg", peso_promedio(arr, longitud));
     p = persona_de_mayor_edad(arr, longitud);
     printf("El nombre de la persona con mayor edad es %s\n", p.nombre);
     p = persona_de_menor_altura(arr, longitud);
