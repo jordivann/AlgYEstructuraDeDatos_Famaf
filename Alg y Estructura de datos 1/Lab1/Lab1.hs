@@ -127,10 +127,11 @@ sumaCuadrados n = sumatoria' [1..n-1] (^2)
 
 --d) Existe divisor
 divisor :: Int -> Int -> Bool
-divisor n x = n `mod`x == 0
+divisor n x = n `mod` x == 0
 
 existeDivisor :: Int -> [Int] -> Bool
-existeDivisor n (x:ls) = existe' ls (divisor n)
+existeDivisor n [] = False
+existeDivisor n (x:xs) = existe' xs (divisor n)
 
 -- e) esPrimo 
 esPrimo :: Int -> Bool
@@ -155,12 +156,23 @@ fib 0 = 0
 fib 1 = 1
 fib n = fib (n - 1) + fib (n - 2)
 
-esfib :: [Int] -> Bool
-esfib [] = True  -- Lista vacía también cumple con la propiedad
-esfib (x:xs) 
-    | x == fib i = esfib xs
-    | otherwise = False
-    where i = length xs
+esFib :: Int -> Bool
+esFib n
+    | n < 0     = False  -- Caso base: Si n es menor que 0, n no está en la sucesión de Fibonacci.
+    | otherwise = auxFib n 0 1
+
+auxFib :: Int -> Int -> Int -> Bool
+auxFib n a b
+    | n == a    = True  -- Caso base: Si n es igual a a, n está en la sucesión de Fibonacci.
+    | n < a     = False -- Caso base: Si n es menor que a, n no está en la sucesión de Fibonacci.
+    | otherwise = auxFib n b (a + b)
+
+
+todosFib :: [Int] -> Bool
+todosFib [] = True
+todosFib (x:xs) 
+    | esFib x = True && todosFib xs
+    | otherwise = False 
 
 
 {- Ejercicio 7) 
@@ -168,9 +180,9 @@ Map lo que hace es tomar una función y aplicarsela a todo elemento de una lista
 Filter lo que hace es tomar una lista, y hacer un "test" a cada elemento de la lista, si es True, añade el elemento al principio de una nueva lista. 
 
 
-map succ = [ 1,-4, 6,2,-8]
+map succ = [1, -4, 6, 2, -8],
 map va a tomar la función succ y lo que va a hacer es que va a sumar 1 unidad a cada elemento de la lista. 
-La lista resultante va a ser [2,-3,7,3,-7]
+La lista resultante va a ser [2, -3, 7, 3, -7],
 
 filter esPositivo [ 1, -4, 6, 2, -8]
 Lo que va a hacer es construir una nueva lista solo con valores positivos osea: [1,6,2]
@@ -227,17 +239,29 @@ primIgualesA a (x:xs)
 primIgualesA' :: Eq a1 => a1 -> [a1] -> [a1]
 primIgualesA' s xs = takeWhile(==s) xs 
 
+-- [1 of 1] Compiling Main             ( Lab1.hs, interpreted )
+-- Ok, one module loaded.
+-- *Main> primIgualesA 3 [3,3,4,1]
+-- [3,3]
+-- *Main> primIgualesA 3 [4,3,3,4,1]
+-- []
+-- *Main> primIgualesA 3 []         
+-- []
+-- *Main> primIgualesA 'a' "aaada"
+-- "aaa"
+
+
 -- Ejercicio 11
 -- Recursion 
 primIguales :: Eq a1 => [a1] -> [a1]
-primIguales xs = primIgualesA (head xs) xs   
+primIguales (x:(y:xs)) 
+    | x == y = x: primIguales (y:xs)
+    | otherwise = [x]
 
 primIguales' :: Eq a1 => [a1] -> [a1]
-primIguales' xs = primIgualesA' (head xs) xs
+primIguales' (x:xs) = primIgualesA x (x:xs) 
 
-{- Tengo un error en este ejercicio, pero no puedo llegar con el tiempo 
- por temas de trabajo y un viaje (razones familiares), si puedo recibir una corrección 
- y la oportunidad de completarlo, para poder acceder a la promoción, sería mucho pedir, pero se agradecería muchisimo -}
+
 
  -- Ejercicio 12 
 cuantGen :: (b -> b -> b) -> b -> [a] -> (a -> b) -> b
@@ -263,9 +287,22 @@ productoria''' xs t = cuantGen(*) 1 xs t
 
 
 -- Ejercicio 13 
+-- Definir una función que se denomina distania de edición. Que toma como entrada dos strings
+distanciaEdicion :: [Char] -> [Char] -> Int
+distanciaEdicion [] xs = length xs
+distanciaEdicion ys [] = length ys
+distanciaEdicion (x:xs) (y:ys) 
+    | x==y = distanciaEdicion xs ys
+    | x /= y = 1 + distanciaEdicion xs ys
 
 
 --Ejercicio 14
+primQueCumplen :: Eq a => [a] -> (a -> Bool) -> [a]
+primQueCumplen ls p = takeWhile p ls
+
+
+
+
 {- 
     a.  f :: (a, b) -> ...
         f (x , y) = ...
