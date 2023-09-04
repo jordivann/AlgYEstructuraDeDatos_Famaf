@@ -254,6 +254,8 @@ primIgualesA' s xs = takeWhile(==s) xs
 -- Ejercicio 11
 -- Recursion 
 primIguales :: Eq a1 => [a1] -> [a1]
+primIguales [] = []
+primIguales [x]=[x]
 primIguales (x:(y:xs)) 
     | x == y = x: primIguales (y:xs)
     | otherwise = [x]
