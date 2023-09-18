@@ -198,8 +198,11 @@ la_concat Vacia la2 = la2
 la_concat (Nodo a b la1) la2 = Nodo a b (la_concat la1 la2)
 
 --b3 
-la_agregar :: ListaAsoc a b -> a -> b -> ListaAsoc a b
-la_agregar la a b = Nodo a b la
+la_agregar :: Eq a => ListaAsoc a b -> a -> b -> ListaAsoc a b
+la_agregar Vacia clave dato = Nodo clave dato Vacia
+la_agregar (Nodo clave dato ls) c d 
+  | clave == c = Nodo clave d ls 
+  | otherwise = Nodo clave dato (la_agregar ls c d)
 
 --b4
 la_pares :: ListaAsoc a b -> [(a,b)]
@@ -251,6 +254,11 @@ a_inc :: Num a => Arbol a -> Arbol a
 a_inc  Hoja = Hoja
 a_inc (Rama izq a der) = Rama (a_inc izq) (a+1) (a_inc der)
 
+
+--a_hojas
+a_hojas :: Arbol a -> Int 
+a_hojas Hoja = 1 
+a_hojas (Rama izq a der) = a_hojas izq + a_hojas der 
 
 -- a_map :: (a->b) -> Arbol a -> Arbol b que dada una función y un árbol, devuelve el árbol con la misma estructura, 
 --          que resulta de aplicar la función a cada uno de los elementos del árbol.
